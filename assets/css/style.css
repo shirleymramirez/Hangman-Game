@@ -1,0 +1,41 @@
+body {
+	background-color: black;
+	color: white;
+}
+header {
+	border: 1px solid white;
+	text-align: center;
+	height: 100px;
+	margin-top: 20px;
+}
+
+h1,
+.logostyle {
+	font-size: 28px;
+	padding-top: 40px;
+}
+
+.logostyle {
+	text-align: center;
+	height:100px;
+	border: 1px solid white;
+	margin-bottom: 30px;
+}
+
+.col-md-2 {
+	border: medium dashed white;
+	height: 300px;
+	text-align: center;
+}
+
+.hangmanimage,
+.gamestart,
+#winner,
+.currentword,
+#underscore,
+#numguessleft,
+#guessletters,
+.rightGuess,
+.wrongGuess {
+	padding-top: 20px;
+}
