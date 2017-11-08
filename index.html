@@ -3,23 +3,28 @@
 <head>
 	<meta charset="utf-8">
 	<title>Hangman-Game</title>
+	
 	<!-- We link our html to the Bootstrap CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- Linking CSS Reset -->
 	<link rel="stylesheet" type="text/css" href="./assets/css/reset.css">
 	<!-- Linking CSS -->
 	<link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+	<!-- Linking JS -->
+	<script src="./assets/javascript/game.js"></script>
 	
 </head>
 <body>
 	<!-- Main Header -->
 	<div class="container">
 		<header>
-			<h1>Hangman-Game</h1>
+			<span>
+				<img src="./assets/images/Hangman-Logo.png" alt="Hangman-Game"> 
+			</span>
 		</header>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="logostyle">80s Style</div>
+				<div class="logostyle">80's Style</div>
 			</div>
 		</div>
 		<!--Game Information -->
@@ -31,19 +36,19 @@
 			<div class="col-md-2">
 				<!-- Player will press any key to start the games -->
 				<div class="gamestart">
-					<p> Press any key to get started! </p>
+					<p> PRESS ANY KEY TO GET STARTED! </p>
 				</div>
-				<div id="winner">wins</div>
-				<div class="currentword">Current Word</div>
-				<div id="underscore"> </div>
-				<div id="numguessleft">Number of Guesses Remaining Is</div>
-				<div id="guessletters">Letters Already Guess</div>
+				<div id="winner">WIN</div>
+				<div class="currentword">CURRENT WORD</div>
+				<div id="underscore">_ _ _ _</div>
+				<div id="numguessleft">NUMBER OF GUESSES REMAINING IS</div>
+				<div id="guessletters">LETTERS ALREADY GUESSED</div>
 
 			</div>
 			<div class="col-md-4"></div>
 		</div>
 	</div>
 	<!-- Linking JS -->
-	<script src="./assets/javascript/game.js"></script>
+	<script src="./assets/javascript/game.js"></script> 
 </body>
 </html>

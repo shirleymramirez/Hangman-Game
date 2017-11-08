@@ -2,36 +2,31 @@
 window.onload =  function () {
 
 	//Create an array of words
-	var words = [ 'cats', 'boolean','dogs', 'house', 'candy', 'toys', 'piano', 'apple'];
+	var wordCategory = [
+		['tennis', 'badminton', 'soccer', 'basketball', 'football', 'swimming', 'billiards', 'archery', 'bowling', 'boxing'],
+		['fish', 'hedgehog', 'dogs', 'cats', 'rabbits', 'snake', 'hamster', 'pigs', 'birds', 'ferrets'],
+		['vegetable', 'fruits', 'pizza', 'burrito', 'steak', 'pasta', 'turkey', 'meat', 'seafood', 'beans']
+	];
 	
 	//function that will output the selected word
-	var game = createHangmanGame(words);
+	var game = createHangmanGame(wordCategory);
 
 	//Get Users guess key
 	document.onkeypress = game.handleKeyPress;
-	//game.start();
 }
 
-//function that will output the selected word
-function createHangmanGame(words) {
+//function that will output the selected word 
+//function createHangmanGame(words) {
+function createHangmanGame(wordCategory) {
 
 	//Choose word ramdonly
-	var randomNum = Math.floor(Math.random() * words.length);
-	var chosenWord = words[randomNum];
-
-	var rightGuessCounter = 0;
-	var guessesleft = 10;
-	var counterWin = 0;
-	console.log(chosenWord);
-
-	//number of letters in the chosen word
-	var underscoredGuessedWord = generateGuessedWord(chosenWord, '_'); 
-
-	var wrongKeys = [];
-	var letterPosition = {};
-	var repeats=[];
-			
-	storeLetterPos();
+	var chosenWord;						
+	var rightGuessCounter;
+	var guessesleft;
+	var counterWin = 0;	
+	var underscoredGuessedWord;        //number of letters in the chosen word
+	var wrongKeys;
+	var letterPosition;
 
 	//DOM Manipulation
 	var underscoreHtmlElement = document.getElementById('underscore');
@@ -39,45 +34,43 @@ function createHangmanGame(words) {
 	var showGuessLetterHTMLElement = document.getElementById('guessletters');
 	var showWinner = document.getElementById('winner');
 
+	reset();
+
 	function reset() {
-		randomNum = Math.floor(Math.random() * words.length);
-		chosenWord = words[randomNum];
+		//Ramdomize category from wordCategory
+		var randomNum = Math.floor(Math.random() * wordCategory.length);
+		var category = wordCategory[randomNum];
+
+		//Ramdomize word in the selected category
+		randomNum = Math.floor(Math.random() * category.length );		
+		chosenWord = category[randomNum];
+
+		console.log(chosenWord);
 		rightGuessCounter = 0;
 		guessesleft = 10;
-		wrongKeys = [];
+		
 		underscoredGuessedWord = generateGuessedWord(chosenWord, '_'); 
-		console.log(chosenWord);
-		underscoreHtmlElement.innerHTML = underscoredGuessedWord;
-		showNumGuessleft.innerHTML = 'Number of Guesses Remaining Is ';
-		showGuessLetterHTMLElement.innerHTML = 'Letters Already Guess ';
+		wrongKeys = [];
+		letterPosition = {};
+		storeLetterPos();
+
+	    //create underscore based on the length of word
+		underscoreHtmlElement.innerHTML = underscoredGuessedWord.join(' ');
+		showNumGuessleft.innerHTML = 'NUMBER OF GUESSES REMAINING IS ';
+		showGuessLetterHTMLElement.innerHTML = 'LETTERS ALREADY GUESS ';
 	}
 
+	//Store indeces of each letter position on chosen word   
 	function storeLetterPos() {
-		// for (var i = 0; i < chosenWord.length; i++ ) {
-			
-		// 	//letterPosition[chosenWord[i]] = [];
-		// 	//letterPosition[chosenWord[i]].push(i);
-		// }
-		//console.log(letterPosition);
-
-		//checking of there are 2 same characters in the guessed word
-		for(x = 0, length = chosenWord.length; x < length; x++) {
-		    var l = chosenWord.charAt(x)
-		    letterPosition[l] = (isNaN(letterPosition[l]) ? 1 : letterPosition[l] + 1);
+		for (var i = 0; i < chosenWord.length; i++ ) {
+			var arrayOfIndexes = letterPosition[chosenWord[i]];
+			if (arrayOfIndexes === undefined) {
+				letterPosition[chosenWord[i]] = [];
+			}
+			letterPosition[chosenWord[i]].push(i);
 		}
-
-		//Processing if there are 2 same letter keys
-		for (chosenWord in letterPosition) {
-		    if (letterPosition.hasOwnProperty(chosenWord) && letterPosition[chosenWord]>1) {
-		        underscoredGuessedWord.push(new Array( letterPosition[chosenWord]+ 1 ).join( chosenWord ));
-		    }
-		}
-		console.log(underscoredGuessedWord);
-
 	}
 
-	//create underscore based on the length of word
-	underscoreHtmlElement.innerHTML = underscoredGuessedWord;
 	function generateGuessedWord(word, separator)  {
 		var guessedWord = [];
 		for(var i = 0; i < word.length; i++) {
@@ -87,36 +80,38 @@ function createHangmanGame(words) {
 	}
 		
 	//Processing of all the valid keys
-	function handleValidKeyPress(index, event) {
+	function handleValidKeyPress(indeces, event) {
 	
-		letterPosition[event.key] = index;
-		console.log(letterPosition);
-
-		//add to right words array
-		underscoredGuessedWord[index] = event.key;
-
-		rightGuessCounter++;
-		console.log('rightGuessCounter ' + rightGuessCounter);
-
-		//Put all the correct guessed letter keys in place of the underscore
-		underscoreHtmlElement.innerHTML = underscoredGuessedWord;
+		//check if event keys are already in the indeces of array 
+		
+		if (underscoredGuessedWord.indexOf(event.key) === -1) {
+    		
+    		//add to right words array
+			for(var i = 0; i < indeces.length; i++) {
+				underscoredGuessedWord[indeces[i]] = event.key;
+				rightGuessCounter++;
+		    }
+		    //Put all the correct guessed letter keys in place of the underscore
+			underscoreHtmlElement.innerHTML = underscoredGuessedWord.join(' ');
+    	}
 	}
 
 	//Processing all the invalid keys 
 	function handleInvalidKeyPress(event) {
+
 		//Check if an invalid letter key is pressed again
 		if (wrongKeys.indexOf(event.key) === -1) {
+
 			//Lists of all the invalid letters guessed
 			wrongKeys.push(event.key);
 		
 			//Compile all the incorrect letter keys guessed
-			showGuessLetterHTMLElement.innerHTML = "Letters Already Guess " + wrongKeys.join( );
+			showGuessLetterHTMLElement.innerHTML = 'LETTERS ALREADY GUESS ' + wrongKeys.join(' ').toUpperCase();
 
 			//Check the number of Guess Remaining 
 			if (wrongKeys.length <= 10) {
 				guessesleft = guessesleft - 1; 
-				console.log('guessesleft ' + guessesleft );
-				showNumGuessleft.innerHTML = "Number of Guesses Remaining is: " + guessesleft;
+				showNumGuessleft.innerHTML = 'NUMBER OF GUESSES REMAINING IS: ' + guessesleft ;
 			}
 		}
 	}
@@ -124,9 +119,8 @@ function createHangmanGame(words) {
 	//win or lose processing
 	function winLoseChecker() {
 		if( chosenWord.length === rightGuessCounter ) {
-			console.log('chosenWord.length ' + chosenWord.length);
 			counterWin = counterWin + 1;
-	 		showWinner.innerHTML = 	'Win ' + counterWin;
+	 		showWinner.innerHTML = 	'WIN ' + counterWin;
 	 		reset();
 	 	}
 	 	else {
@@ -139,16 +133,17 @@ function createHangmanGame(words) {
 	return {
 		//This function is run whenever the user presses a key		
 		handleKeyPress: function(event) {
+	
 			//Check if the key pressed by the user is in the chosen Words
 			var isAlpha = (event.key.match(/^[A-Za-z]{1}$/) !== null);
 
-			if (isAlpha){
-				var index = chosenWord.indexOf(event.key);
-				console.log(event.key);
+			if (isAlpha) {
+
+				var indeces= letterPosition[event.key];
 
 				//Check if the key value exists
-				if( index > -1  ) {
-					handleValidKeyPress(index, event); 
+				if( indeces ) {
+					handleValidKeyPress(indeces, event); 
 				} 
 				else {
 					handleInvalidKeyPress(event);
@@ -158,5 +153,5 @@ function createHangmanGame(words) {
 				winLoseChecker();
 			}
 		},
-    } 
+	}
 }

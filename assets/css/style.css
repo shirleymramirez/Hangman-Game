@@ -1,33 +1,45 @@
+/* Body background Color set to black*/
 body {
 	background-color: black;
 	color: white;
 }
+
+/* Header Dimension */
 header {
-	border: 1px solid white;
 	text-align: center;
-	height: 100px;
+	height: 120px;
 	margin-top: 20px;
 }
 
-h1,
-.logostyle {
-	font-size: 28px;
-	padding-top: 40px;
+img {
+	background: url("Hangman-Logo.png") 20px 50% no-repeat, linear-gradient(blue, pink, white);
+	height: 100px;
+	width: 75%;
 }
 
+span {
+	margin-top: 50px;
+}
+
+/* Logo style */
 .logostyle {
 	text-align: center;
-	height:100px;
-	border: 1px solid white;
+	height:90px;
 	margin-bottom: 30px;
+	font-variant-position: super;
+	font-size: 100px;
+	font-style: oblique;
+	color: green;
 }
 
+/* Game Information */
 .col-md-2 {
 	border: medium dashed white;
-	height: 300px;
+	height: 500px;
 	text-align: center;
 }
 
+/* Game Info Text */
 .hangmanimage,
 .gamestart,
 #winner,
@@ -37,5 +49,5 @@ h1,
 #guessletters,
 .rightGuess,
 .wrongGuess {
-	padding-top: 20px;
+	padding-top: 30px;
 }
