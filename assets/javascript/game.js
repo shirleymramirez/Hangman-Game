@@ -16,17 +16,17 @@ window.onload =  function () {
 }
 
 //function that will output the selected word 
-//function createHangmanGame(words) {
 function createHangmanGame(wordCategory) {
 
-	//Choose word ramdonly
-	var chosenWord;						
-	var rightGuessCounter;
-	var guessesleft;
-	var counterWin = 0;	
-	var underscoredGuessedWord;        //number of letters in the chosen word
-	var wrongKeys;
-	var letterPosition;
+	
+	var chosenWord;	                  // Words chosen randomly					
+	var rightGuessCounter;            // Counter for correct guessed  letters
+	var guessesleft;                  // Number of guesses left in a play
+	var counterWin = 0;	              // Counter for the win   
+	var underscoredGuessedWord;       // Number of letters in the chosen word
+	var wrongKeys;                    // Wrong key pressed by the user
+	var letterPosition;               // Positioning of letters to the correct indeces
+	var toSmallKeyEvent;              // Caps lock pressed letters converted to small case
 
 	//DOM Manipulation
 	var underscoreHtmlElement = document.getElementById('underscore');
@@ -37,7 +37,7 @@ function createHangmanGame(wordCategory) {
 	reset();
 
 	function reset() {
-		//Ramdomize category from wordCategory
+		//Ramdomize category from wordCategory(our array of words)
 		var randomNum = Math.floor(Math.random() * wordCategory.length);
 		var category = wordCategory[randomNum];
 
@@ -53,6 +53,7 @@ function createHangmanGame(wordCategory) {
 		wrongKeys = [];
 		letterPosition = {};
 		storeLetterPos();
+		toSmallKeyEvent = [];
 
 	    //create underscore based on the length of word
 		underscoreHtmlElement.innerHTML = underscoredGuessedWord.join(' ');
@@ -71,6 +72,7 @@ function createHangmanGame(wordCategory) {
 		}
 	}
 
+	//Generate the guessed word
 	function generateGuessedWord(word, separator)  {
 		var guessedWord = [];
 		for(var i = 0; i < word.length; i++) {
@@ -82,15 +84,15 @@ function createHangmanGame(wordCategory) {
 	//Processing of all the valid keys
 	function handleValidKeyPress(indeces, event) {
 	
-		//check if event keys are already in the indeces of array 
-		
-		if (underscoredGuessedWord.indexOf(event.key) === -1) {
+		//check if event keys are already in the indeces of array 		
+		if (underscoredGuessedWord.indexOf(toSmallKeyEvent) === -1) {
     		
     		//add to right words array
 			for(var i = 0; i < indeces.length; i++) {
-				underscoredGuessedWord[indeces[i]] = event.key;
+				underscoredGuessedWord[indeces[i]] = toSmallKeyEvent;
 				rightGuessCounter++;
 		    }
+
 		    //Put all the correct guessed letter keys in place of the underscore
 			underscoreHtmlElement.innerHTML = underscoredGuessedWord.join(' ');
     	}
@@ -100,10 +102,10 @@ function createHangmanGame(wordCategory) {
 	function handleInvalidKeyPress(event) {
 
 		//Check if an invalid letter key is pressed again
-		if (wrongKeys.indexOf(event.key) === -1) {
+		if (wrongKeys.indexOf(toSmallKeyEvent) === -1) {
 
 			//Lists of all the invalid letters guessed
-			wrongKeys.push(event.key);
+			wrongKeys.push(toSmallKeyEvent);
 		
 			//Compile all the incorrect letter keys guessed
 			showGuessLetterHTMLElement.innerHTML = 'LETTERS ALREADY GUESS ' + wrongKeys.join(' ').toUpperCase();
@@ -119,9 +121,12 @@ function createHangmanGame(wordCategory) {
 	//win or lose processing
 	function winLoseChecker() {
 		if( chosenWord.length === rightGuessCounter ) {
+
+			//Increment counter win
 			counterWin = counterWin + 1;
-	 		showWinner.innerHTML = 	'WIN ' + counterWin;
-	 		reset();
+	 		showWinner.innerHTML = 	'WIN ' + counterWin;	
+	 		
+			reset();
 	 	}
 	 	else {
 	 		if( guessesleft === 0) {
@@ -137,11 +142,14 @@ function createHangmanGame(wordCategory) {
 			//Check if the key pressed by the user is in the chosen Words
 			var isAlpha = (event.key.match(/^[A-Za-z]{1}$/) !== null);
 
+			//Change Capital input(keys) to lower case
+			toSmallKeyEvent = event.key.toLowerCase();
+
 			if (isAlpha) {
 
-				var indeces= letterPosition[event.key];
+				var indeces= letterPosition[toSmallKeyEvent];
 
-				//Check if the key value exists
+				//Check if the key value does exists or not 
 				if( indeces ) {
 					handleValidKeyPress(indeces, event); 
 				} 

@@ -17,22 +17,26 @@
 <body>
 	<!-- Main Header -->
 	<div class="container">
-		<header>
-			<span>
-				<img src="./assets/images/Hangman-Logo.png" alt="Hangman-Game"> 
-			</span>
+		<header class="hangmanlogo">
+			<img src="./assets/images/Hangman-Logo.png" alt="Hangman-Game"> 
 		</header>
+
 		<div class="row">
 			<div class="col-md-12">
-				<div class="logostyle">80's Style</div>
+				<div class="logostyle">Shirley's Style</div>
 			</div>
 		</div>
+
 		<!--Game Information -->
 		<div class="row">
 			<div class="col-md-4"></div>
+
 			<div class="col-md-2">
-				<div class="hangmanimage">Image of hangman</div>
+				<div id="image-div">
+					<img src="./assets/images/hangcord.jpg" alt="Sample Image"> 
+				</div>
 			</div>
+
 			<div class="col-md-2">
 				<!-- Player will press any key to start the games -->
 				<div class="gamestart">
@@ -43,11 +47,12 @@
 				<div id="underscore">_ _ _ _</div>
 				<div id="numguessleft">NUMBER OF GUESSES REMAINING IS</div>
 				<div id="guessletters">LETTERS ALREADY GUESSED</div>
-
 			</div>
+			
 			<div class="col-md-4"></div>
 		</div>
 	</div>
+
 	<!-- Linking JS -->
 	<script src="./assets/javascript/game.js"></script> 
 </body>

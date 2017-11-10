@@ -10,33 +10,33 @@ header {
 	height: 120px;
 	margin-top: 20px;
 }
-
-img {
-	background: url("Hangman-Logo.png") 20px 50% no-repeat, linear-gradient(blue, pink, white);
-	height: 100px;
-	width: 75%;
-}
-
-span {
-	margin-top: 50px;
+/* Hangmanlogo dimension*/
+.hangmanlogo img {
+	height: 200px;
+	width: 500px;
 }
 
 /* Logo style */
 .logostyle {
 	text-align: center;
 	height:90px;
-	margin-bottom: 30px;
-	font-variant-position: super;
-	font-size: 100px;
+	font-size: 50px;
 	font-style: oblique;
-	color: green;
+	color: red;
+	margin-top: 50px;
 }
 
-/* Game Information */
+/* Game Information Layout */
 .col-md-2 {
 	border: medium dashed white;
 	height: 500px;
 	text-align: center;
+}
+
+#image-div img {
+	margin-top: 20px;
+	height: 100px;
+	width: 150px;
 }
 
 /* Game Info Text */
