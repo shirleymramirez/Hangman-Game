@@ -124,8 +124,7 @@ function createHangmanGame(wordCategory) {
 
 			//Increment counter win
 			counterWin = counterWin + 1;
-	 		showWinner.innerHTML = 	'WIN ' + counterWin;	
-	 		
+	 		showWinner.innerHTML = 	'WIN ' + counterWin;	 		
 			reset();
 	 	}
 	 	else {
