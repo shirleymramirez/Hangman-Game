@@ -4,9 +4,9 @@ window.onload =  function () {
 	//Create an array of words
 	var wordCategory = [
 		['tennis', 'badminton', 'soccer', 'basketball', 'football', 'swimming', 'billiards', 'archery', 'bowling', 'boxing'],
-		['fish', 'hedgehog', 'dogs', 'cats', 'rabbits', 'snake', 'hamster', 'pigs', 'birds', 'ferrets'],
-		['vegetable', 'fruits', 'pizza', 'burrito', 'steak', 'pasta', 'turkey', 'meat', 'seafood', 'beans']
-	];
+		// ['fish', 'hedgehog', 'dogs', 'cats', 'rabbits', 'snake', 'hamster', 'pigs', 'birds', 'ferrets'],
+		// ['vegetable', 'fruits', 'pizza', 'burrito', 'steak', 'pasta', 'turkey', 'meat', 'seafood', 'beans']
+	];	
 	
 	//function that will output the selected word
 	var game = createHangmanGame(wordCategory);
@@ -33,6 +33,7 @@ function createHangmanGame(wordCategory) {
 	var showNumGuessleft = document.getElementById('numguessleft');
 	var showGuessLetterHTMLElement = document.getElementById('guessletters');
 	var showWinner = document.getElementById('winner');
+	var imageHTMLElement = document.getElementById('image-div');
 
 	reset();
 
@@ -92,7 +93,6 @@ function createHangmanGame(wordCategory) {
 				underscoredGuessedWord[indeces[i]] = toSmallKeyEvent;
 				rightGuessCounter++;
 		    }
-
 		    //Put all the correct guessed letter keys in place of the underscore
 			underscoreHtmlElement.innerHTML = underscoredGuessedWord.join(' ');
     	}
@@ -124,7 +124,25 @@ function createHangmanGame(wordCategory) {
 
 			//Increment counter win
 			counterWin = counterWin + 1;
-	 		showWinner.innerHTML = 	'WIN ' + counterWin;	 		
+	 		showWinner.innerHTML = 	'WIN ' + counterWin;	
+
+			var imageCounterPart = {
+				"tennis":    "tennis.jpg",
+				"badminton": "badminton.jpg",
+				"soccer":    "soccer.jpg",
+				"basketball":"basketball.jpg",
+				"football":  "football.jpeg", 
+				"swimming":  "swimming.jpg", 
+				"billiards": "billiards.jpg", 
+				"archery": 	 "archery.png", 
+				"bowling": 	 "bowling.jpg", 
+				"boxing": 	 "boxing.jpeg",
+			};
+
+			 //update the image on the page
+			imageHTMLElement.innerHTML = "<img class='images' src='assets/images/" + 
+			   imageCounterPart[chosenWord] + "' alt='" + "'>";
+				
 			reset();
 	 	}
 	 	else {
