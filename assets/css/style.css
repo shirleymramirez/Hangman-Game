@@ -51,3 +51,11 @@ header {
 .wrongGuess {
 	padding-top: 30px;
 }
+
+/* Footer Style */
+.primary-footer {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+}
